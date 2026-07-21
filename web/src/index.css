@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-slate-50 text-slate-800;
+  }
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent;
+  }
+  .glass {
+    @apply border border-white/60 bg-white/70 backdrop-blur-xl;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-soft;
+  }
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-slate-200/70;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent;
+  }
+}
+
+.hero-grid {
+  background-image: radial-gradient(rgba(79, 70, 229, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
