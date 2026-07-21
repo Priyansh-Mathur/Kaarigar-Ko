@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "KaarigarKo",
+    "slug": "kaarigarko-customer",
+    "scheme": "kaarigarko",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#4f46e5",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.kaarigarko.customer"
+    },
+    "android": {
+      "package": "app.kaarigarko.customer",
+      "adaptiveIcon": {
+        "backgroundColor": "#4f46e5"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-asset",
+      "expo-font",
+      "expo-notifications"
+    ],
+    "extra": {
+      "apiUrl": "https://kaarigarko-api.onrender.com/api/v1",
+      "eas": {
+        "projectId": "dd82801b-ac1f-4344-9359-26e828f92578"
+      }
+    },
+    "owner": "Priyansh-Mathur"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "KaarigarKo Pro",
+    "slug": "kaarigarko-worker",
+    "scheme": "kaarigarkopro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#4338ca",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.kaarigarko.worker"
+    },
+    "android": {
+      "package": "app.kaarigarko.worker",
+      "adaptiveIcon": {
+        "backgroundColor": "#4338ca"
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-asset",
+      "expo-font",
+      "expo-notifications",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "KaarigarKo Pro shares your live location with the customer while you're on the way to a job."
+        }
+      ]
+    ],
+    "extra": {
+      "apiUrl": "https://kaarigarko-api.onrender.com/api/v1",
+      "eas": {
+        "projectId": "4e711256-b6ba-4c71-9a6a-6ce1e524c80d"
+      }
+    },
+    "owner": "Priyansh-Mathur"
+  }
+}

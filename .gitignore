@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+.env.local
+.env.*.local
+
+# Signing / credentials (never commit these)
+*.jks
+*.p12
+*.pfx
+*.p8
+*.pem
+*.mobileprovision
+release.keystore
+upload.keystore
+**/google-services.json
+**/GoogleService-Info.plist
+**/serviceAccount*.json
+
+# Expo (machine-local)
+.expo/
+mobile/*/.expo/
+
+# Prisma
+prisma/*.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
