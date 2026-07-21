@@ -39,9 +39,7 @@ export function AppShell({ navItems, requireRole, children }) {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
               <Hammer className="h-4 w-4" />
             </span>
-            <span className="font-bold text-slate-900">
-              Kaarigar<span className="text-brand-600">Go</span>
-            </span>
+            <span className="font-bold text-slate-900">KaarigarKo</span>
             {requireRole === 'admin' && (
               <span className="ml-1 rounded-md bg-slate-900 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
                 Admin

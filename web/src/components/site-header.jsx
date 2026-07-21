@@ -14,9 +14,7 @@ export function SiteHeader() {
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-glow">
             <Hammer className="h-5 w-5" />
           </span>
-          <span className="text-lg font-bold tracking-tight text-slate-900">
-            Kaarigar<span className="text-brand-600">Go</span>
-          </span>
+          <span className="text-lg font-bold tracking-tight text-slate-900">KaarigarKo</span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
@@ -38,6 +36,12 @@ export function SiteHeader() {
           )}
         </div>
       </div>
+
+      <nav className="flex items-center gap-4 overflow-x-auto border-t border-slate-100 px-4 py-2 text-sm font-medium text-slate-600 md:hidden">
+        <a href="#services" className="whitespace-nowrap transition hover:text-slate-900">Services</a>
+        <a href="#how" className="whitespace-nowrap transition hover:text-slate-900">How it works</a>
+        <a href="#pro" className="whitespace-nowrap transition hover:text-slate-900">Become a pro</a>
+      </nav>
     </header>
   );
 }
