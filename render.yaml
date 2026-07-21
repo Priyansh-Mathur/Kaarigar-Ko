@@ -1,0 +1,40 @@
+# Render Blueprint — one-click backend deploy.
+# In Render: New → Blueprint → connect this repo. Render reads this file, builds the
+# Dockerfile, and prompts for the two secrets marked `sync: false`.
+services:
+  - type: web
+    name: kaarigarko-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free # NOTE: free instances sleep after ~15 min idle (cold starts + socket drops).
+    region: singapore # closest to India/Supabase ap-south; change if you like
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # paste your Supabase connection string in the Render dashboard
+      - key: REDIS_URL
+        sync: false # paste your Upstash rediss:// URL in the Render dashboard
+      - key: CORS_ORIGIN
+        sync: false # comma-separated Netlify/Vercel origin(s), e.g. https://your-site.netlify.app
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_TTL
+        value: "900"
+      - key: JWT_REFRESH_TTL
+        value: "2592000"
+      - key: RAZORPAY_KEY_ID
+        sync: false # required for production payments
+      - key: RAZORPAY_KEY_SECRET
+        sync: false # required for production payments
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false # required to verify payment webhooks
+      - key: UPI_VPA
+        sync: false # your UPI ID / VPA that receives payments, e.g. yourname@okhdfcbank
+      - key: UPI_PAYEE_NAME
+        value: KaarigarKo
+      - key: SEED_DEMO_HISTORY
+        value: "false" # set to "true" once to backfill ~2 months of demo activity on the next deploy, then back to "false"
