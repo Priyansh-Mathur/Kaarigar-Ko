@@ -12,8 +12,9 @@ async function requestOtp(phone) {
   const code = await otp.issue(phone);
   await sendOtp(phone, code);
   const response = { sent: true, expiresInSec: 300 };
-  if (env.NODE_ENV !== 'production') {
-    // Demo mode only: surface the code so local apps can auto-fill it.
+  if (env.NODE_ENV !== 'production' || env.SMS_PROVIDER !== 'msg91' || !env.SMS_PROVIDER_KEY || !env.SMS_MSG91_FLOW_ID) {
+    // Demo fallback: surface the code so the bundled demo clients can auto-fill it.
+    // A configured MSG91 production service never returns the code to the client.
     response.devOtp = code;
   }
   return response;
