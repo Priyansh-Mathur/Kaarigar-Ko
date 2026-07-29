@@ -49,7 +49,8 @@ The repo root has a production [`Dockerfile`](Dockerfile) (multi-stage; runs
    - `NODE_ENV=production`
    - `DATABASE_URL`, `REDIS_URL` (from steps 1–2)
    - `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` (long random strings), `JWT_ACCESS_TTL=900`, `JWT_REFRESH_TTL=2592000`
-   - `CORS_ORIGIN=https://<your-web-domain>` plus Payments/SMS/maps keys from `.env.example` as you enable them.
+  - `CORS_ORIGIN=https://<your-web-domain>` plus Payments/SMS/maps keys from `.env.example` as you enable them.
+  - For real OTPs in India: create and approve a DLT Flow in MSG91 with an `otp` variable, then set `SMS_PROVIDER=msg91`, `SMS_PROVIDER_KEY`, and `SMS_MSG91_FLOW_ID`. The API refuses to start in production if these values are absent, rather than pretending an OTP was sent.
 3. Deploy. The first boot applies migrations. Note the public URL → e.g. `https://kaarigarko-api.onrender.com`.
 4. **Seed once** (optional, for catalog + GiST indexes): from the host's shell run
    `npm run db:seed` — or add the equivalent to a one-off job. (For production, prefer adding the
@@ -93,8 +94,7 @@ credentials in EAS, and POST the Expo/FCM token to `POST /me/devices` on login.
 - [ ] **Payments**: set `RAZORPAY_KEY_ID/SECRET/WEBHOOK_SECRET`; point the Razorpay webhook at
       `https://<api-host>/api/v1/payments/webhook`. The provider auto-switches from mock → Razorpay
       when `RAZORPAY_KEY_ID` is present.
-- [ ] **SMS/OTP**: implement a real `SmsService` (MSG91/Twilio) and complete India **DLT** template
-      registration. Dev `devOtp` is disabled automatically when `NODE_ENV=production`.
+- [ ] **SMS/OTP**: complete India **DLT** Flow registration in MSG91 and set `SMS_PROVIDER_KEY` / `SMS_MSG91_FLOW_ID` in the API host. Dev `devOtp` is disabled automatically when `NODE_ENV=production`.
 - [ ] **KYC**: integrate a licensed KYC provider; do not store raw IDs (spec §0/§14).
 - [ ] **Scale**: add the **Socket.IO Redis adapter** for multi-instance, and move settlement/payout
       processing to **BullMQ** (Redis is already provisioned).

@@ -13,6 +13,11 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string().min(1).default('dev_refresh_secret_change_me'),
   JWT_ACCESS_TTL: z.coerce.number().int().positive().default(900),
   JWT_REFRESH_TTL: z.coerce.number().int().positive().default(2592000),
+  // MSG91 Flow credentials. Required in production so OTPs are never silently dropped.
+  SMS_PROVIDER: z.enum(['msg91', 'disabled']).default('disabled'),
+  SMS_PROVIDER_KEY: z.string().optional(),
+  SMS_MSG91_FLOW_ID: z.string().optional(),
+  SMS_OTP_VARIABLE: z.string().default('otp'),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -21,6 +26,15 @@ if (!parsed.success) {
     .map((i) => `  - ${i.path.join('.') || '(root)'}: ${i.message}`)
     .join('\n');
   throw new Error(`Invalid environment variables:\n${issues}`);
+}
+
+if (parsed.data.NODE_ENV === 'production') {
+  if (parsed.data.SMS_PROVIDER !== 'msg91') {
+    throw new Error('SMS_PROVIDER=msg91 is required in production to deliver login OTPs');
+  }
+  if (!parsed.data.SMS_PROVIDER_KEY || !parsed.data.SMS_MSG91_FLOW_ID) {
+    throw new Error('SMS_PROVIDER_KEY and SMS_MSG91_FLOW_ID are required for production SMS delivery');
+  }
 }
 
 module.exports = parsed.data;

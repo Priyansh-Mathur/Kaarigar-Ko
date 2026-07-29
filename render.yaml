@@ -18,6 +18,14 @@ services:
         sync: false # paste your Upstash rediss:// URL in the Render dashboard
       - key: CORS_ORIGIN
         sync: false # comma-separated Netlify/Vercel origin(s), e.g. https://your-site.netlify.app
+      - key: SMS_PROVIDER
+        value: msg91
+      - key: SMS_PROVIDER_KEY
+        sync: false # MSG91 auth key; never commit it
+      - key: SMS_MSG91_FLOW_ID
+        sync: false # approved MSG91/DLT Flow ID with an `otp` variable
+      - key: SMS_OTP_VARIABLE
+        value: otp
       - key: JWT_ACCESS_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET

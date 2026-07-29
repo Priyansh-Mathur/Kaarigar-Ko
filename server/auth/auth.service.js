@@ -5,18 +5,12 @@ const prisma = require('../config/db');
 const redis = require('../config/redis');
 const env = require('../config/env');
 const otp = require('./otp');
+const { sendOtp } = require('./sms');
 const { HttpError } = require('../lib/envelope');
-
-// DevSmsService: log instead of sending (no SMS provider in demo).
-function sendOtp(phone, code) {
-  if (env.NODE_ENV !== 'production') {
-    console.log(`SMS(dev) OTP for ${phone}: ${code}`);
-  }
-}
 
 async function requestOtp(phone) {
   const code = await otp.issue(phone);
-  sendOtp(phone, code);
+  await sendOtp(phone, code);
   const response = { sent: true, expiresInSec: 300 };
   if (env.NODE_ENV !== 'production') {
     // Demo mode only: surface the code so local apps can auto-fill it.
