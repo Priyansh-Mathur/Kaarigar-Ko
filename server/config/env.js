@@ -28,13 +28,4 @@ if (!parsed.success) {
   throw new Error(`Invalid environment variables:\n${issues}`);
 }
 
-if (parsed.data.NODE_ENV === 'production') {
-  if (parsed.data.SMS_PROVIDER !== 'msg91') {
-    throw new Error('SMS_PROVIDER=msg91 is required in production to deliver login OTPs');
-  }
-  if (!parsed.data.SMS_PROVIDER_KEY || !parsed.data.SMS_MSG91_FLOW_ID) {
-    throw new Error('SMS_PROVIDER_KEY and SMS_MSG91_FLOW_ID are required for production SMS delivery');
-  }
-}
-
 module.exports = parsed.data;

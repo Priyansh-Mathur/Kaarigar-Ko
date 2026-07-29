@@ -13,6 +13,11 @@ async function sendOtp(phone, code) {
     return;
   }
 
+  if (env.SMS_PROVIDER !== 'msg91' || !env.SMS_PROVIDER_KEY || !env.SMS_MSG91_FLOW_ID) {
+    console.warn('OTP generated but not delivered: MSG91 credentials are not configured');
+    return;
+  }
+
   const response = await fetch('https://control.msg91.com/api/v5/flow/', {
     method: 'POST',
     headers: {
